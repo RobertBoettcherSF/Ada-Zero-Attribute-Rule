@@ -1,19 +1,19 @@
-GNAT    := gnatmake
-FLAGS   := -gnatwa -gnat2022
-OBJ_DIR := obj
-BIN_DIR := bin
+GNAT = gnatmake
+FLAGS = -gnatwa -gnat2022
+OBJ_DIR = obj
+BIN_DIR = bin
 
 .PHONY: all test clean
 
-all: $(BIN_DIR)/tests
+all: bin/tests
 
-$(BIN_DIR)/tests: *.ads *.adb zero_attribute_rule.gpr
-	mkdir -p $(OBJ_DIR)$(BIN_DIR)
-	$(GNAT)$(FLAGS) -Pzero_attribute_rule.gpr
+bin/tests: *.ads *.adb zero_attribute_rule.gpr
+	mkdir -p obj bin
+	gnatmake -gnatwa -gnat2022 -Pzero_attribute_rule.gpr
 
 test: all
 	@echo "Running tests..."
-	@$(BIN_DIR)/tests
+	@bin/tests
 
 clean:
-	rm -rf $(OBJ_DIR)$(BIN_DIR)
+	rm -rf obj bin
